@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: () => import('@/views/login/index.vue')
+    component: () => import('@/layout/common/index.vue')
   },
   {
     path: '/login',
@@ -13,8 +13,6 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes
 })
-
-export default router

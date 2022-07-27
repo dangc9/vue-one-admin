@@ -56,6 +56,7 @@
 import { reactive, ref } from 'vue';
 import { setLoginType } from './login.js';
 import { sysStoreWithOut } from '@/store/modules/sys';
+import { router } from '@/router';
 import request from '@/api/sys/user';
 
 const store = sysStoreWithOut();
@@ -80,6 +81,7 @@ async function handleLogin() {
   store.setToken(res.data.token)
   console.log(store.token)
   console.log('登录成功')
+  router.push('/')
 }
 </script>
 
