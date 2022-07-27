@@ -12,6 +12,7 @@
     "core-js": "^3.8.3",
     "element-ui": "^2.15.9",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.17",
     "vue": "^2.7.0",
     "vue-router": "^3.5.1"
