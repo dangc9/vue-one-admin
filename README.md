@@ -1,5 +1,10 @@
 # vue-one-admin
 Vue2.7 + element ui 后台管理admin。 最新Vue2.7，支持setup，兼容IE9+。持续更新...
+
+# 地址
+- [预览](https://dangc.cn/one-admin/)
+
+
 ## Project setup
 ```
 yarn install
