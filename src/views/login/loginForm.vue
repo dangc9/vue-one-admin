@@ -8,37 +8,45 @@
       <el-form-item prop="password" class="enter-x">
         <el-input v-model="formData.password" show-password size="small" placeholder="密码"></el-input>
       </el-form-item>
-      <el-form-item class="enter-x">
-        <el-row>
-          <el-col :span="12">
-            <el-checkbox v-model="formData.checked">记住我</el-checkbox>
+      <el-form-item prop="code" class="enter-x">
+        <el-col :span="16">
+          <el-input v-model="formData.code" size="small" placeholder="验证码"></el-input>
+        </el-col>
+        <el-col :span="8">
+          <img class="login-code" src="https://d2.pub/d2-admin/preview/img/login-code.10fef840.png" alt="">
+        </el-col>
+      </el-form-item>
+      <el-form-item class="enter-x" style="margin-bottom: 0">
+        <el-col :span="12">
+          <el-checkbox v-model="formData.checked">记住我</el-checkbox>
+        </el-col>
+        <el-col :span="12" :style="{ 'text-align': 'right' }">
+          <el-link type="primary" :underline="false">忘记密码?</el-link>
+        </el-col>
+      </el-form-item>
+      <div class="enter-x">
+        <el-form-item>
+          <el-button type="primary" size="small" style="width: 100%"  @click="handleLogin" :loading="loading">登录</el-button>
+        </el-form-item>
+        <el-row class="handle-tab">
+          <el-col :span="8" :xs="24">
+            <el-button size="mini" @click="setLoginType('MOBILE')">手机登录</el-button>
           </el-col>
-          <el-col :span="12" :style="{ 'text-align': 'right' }">
-            <el-link type="primary" :underline="false">忘记密码?</el-link>
+          <el-col :span="8" :xs="24" class="center-tab">
+            <el-button size="mini" @click="setLoginType('QR_CODE')">二维码登录</el-button>
+          </el-col>
+          <el-col :span="8" :xs="24">
+            <el-button size="mini" @click="setLoginType('REGISTER')">注册</el-button>
           </el-col>
         </el-row>
-      </el-form-item>
-      <el-form-item class="enter-x">
-        <el-button type="primary" size="small" style="width: 100%"  @click="handleLogin">登录</el-button>
-      </el-form-item>
-      <el-row class="handle-tab enter-x">
-        <el-col :span="8" :xs="24">
-          <el-button size="mini">手机登录</el-button>
-        </el-col>
-        <el-col :span="8" :xs="24" class="center-tab">
-          <el-button size="mini">二维码登录</el-button>
-        </el-col>
-        <el-col :span="8" :xs="24">
-          <el-button size="mini">注册</el-button>
-        </el-col>
-      </el-row>
-      <el-divider>其他登录方式</el-divider>
-      <div class="other-login">
-        <i class="el-icon-orange"></i>
-        <i class="el-icon-pear"></i>
-        <i class="el-icon-apple"></i>
-        <i class="el-icon-coffee"></i>
-        <i class="el-icon-ice-tea"></i>
+        <el-divider>其他登录方式</el-divider>
+        <div class="other-login">
+          <i class="el-icon-orange"></i>
+          <i class="el-icon-pear"></i>
+          <i class="el-icon-apple"></i>
+          <i class="el-icon-coffee"></i>
+          <i class="el-icon-ice-tea"></i>
+        </div>
       </div>
     </el-form>
   </div>
@@ -46,7 +54,13 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
+import { setLoginType } from './login.js';
+import { sysStoreWithOut } from '@/store/modules/sys';
+import request from '@/api/sys/user';
+
+const store = sysStoreWithOut();
 const rules = {
+  // code: [{ required: true, message: '请输入验证码' }],
   account: [{ required: true, message: '请输入账号' }],
   password: [{ required: true, message: '请输入密码' }]
 }
@@ -54,11 +68,18 @@ const formData = reactive({
   account: 'admin',
   password: 'oneAdmin'
 })
+const loading = ref(false);
 const loginForm = ref()
 async function handleLogin() {
   const data = await loginForm.value.validate().catch(() => {});
   if (!data) return;
-  console.log(formData)
+  loading.value = true
+  const res = await request.loginApi(formData).catch(() => {});
+  loading.value = false
+  if (!res) return;
+  store.setToken(res.data.token)
+  console.log(store.token)
+  console.log('登录成功')
 }
 </script>
 
@@ -78,11 +99,13 @@ async function handleLogin() {
   .el-input {
     width: 100%;
   }
-  .el-form-item {
-    margin-bottom: 15px;
-  }
   .el-button {
     width: 100%;
+  }
+  .login-code {
+    float: right;
+    width: 90;
+    height: 38px;
   }
   .handle-tab {
     text-align: center;
@@ -103,12 +126,6 @@ async function handleLogin() {
       color: #888;
       cursor: pointer;
     }
-  }
-}
-::v-deep {
-  .el-form-item__error {
-    padding-top: 1px;
-    padding-left: 1px;
   }
 }
 @media (min-width: 768px) {
