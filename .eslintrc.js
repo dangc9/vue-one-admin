@@ -4,11 +4,11 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
+    "plugin:vue/essential",
+    "@vue/standard"
   ],
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: "@babel/eslint-parser"
   },
    // 自定义eslint规则
   rules: {

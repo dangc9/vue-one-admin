@@ -55,11 +55,17 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { setLoginType } from './login.js';
-import { sysStoreWithOut } from '@/store/modules/sys';
-import { router } from '@/router';
-import request from '@/api/sys/user';
-
-const store = sysStoreWithOut();
+// import { useStore } from 'vuex';
+// const store = useStore()
+// import store from '@/store/index';
+// console.log(store.state.account)
+// const $vm = getCurrentInstance()
+// const router = $vm.proxy.$router
+// const route = $vm.proxy.$route
+// console.log(route)
+// import { useStore } from '@/store/use.js'
+// const store = useStore()
+// console.log(store.counter)
 const rules = {
   // code: [{ required: true, message: '请输入验证码' }],
   account: [{ required: true, message: '请输入账号' }],
@@ -74,14 +80,15 @@ const loginForm = ref()
 async function handleLogin() {
   const data = await loginForm.value.validate().catch(() => {});
   if (!data) return;
-  loading.value = true
-  const res = await request.loginApi(formData).catch(() => {});
-  loading.value = false
-  if (!res) return;
-  store.setToken(res.data.token)
-  console.log(store.token)
-  console.log('登录成功')
-  router.push('/')
+  console.log(1)
+  // loading.value = true
+  // store.increment()
+  // console.log(store.counter)
+  // const res = userStore.login(formData);
+  // loading.value = false
+  // if (!res) return;
+  // console.log(res)
+  // router.push('/')
 }
 </script>
 

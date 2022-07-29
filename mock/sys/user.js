@@ -43,15 +43,15 @@ module.exports = [
     }
   },
   {
-    url: '/user/info\.*',
+    url: '/user/getUserInfo',
     type: 'get',
     response: config => {
-      const { token } = config.query
+      const { token } = config.headers
       const info = users[token]
       if (!info) {
         return {
           code: 508,
-          message: 'Login failed, unable to get user details.'
+          message: '获取用户信息失败'
         }
       }
       return {

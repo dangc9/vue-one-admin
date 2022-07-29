@@ -1,4 +1,5 @@
 import { Message } from 'element-ui'
+import { getToken } from '@/utils/auth'
 const interceptor = function(service) {
   const whiteList = [
     // '/user/login'
@@ -14,6 +15,7 @@ const interceptor = function(service) {
   // request拦截器
   service.interceptors.request.use(
     config => {
+      getToken() && (config.headers.token = getToken())
       // 为get请求添加时间戳
       if (config.method === 'get') {
         config.params = {

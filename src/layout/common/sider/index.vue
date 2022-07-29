@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>22</p>
+    <logo></logo>
   </div>
 </template>
 
 <script setup>
-
+import logo from './logo.vue'
 </script>

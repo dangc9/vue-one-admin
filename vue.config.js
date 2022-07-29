@@ -1,16 +1,16 @@
-module.exports = {
-  publicPath: "/one-admin/",
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  publicPath: "./",
   lintOnSave: true,
-  transpileDependencies: [
-    '@vue/devtools-api',
-    'pinia',
-    'sockjs-client'
-  ],
+  transpileDependencies: true,
   devServer: {
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    before: require('./mock/mock-server.js')
+    client: {
+        overlay: {
+        warnings: false,
+        errors: true
+      },
+    }
+
+    // before: require('./mock/mock-server.js')
   },
-}
+})
