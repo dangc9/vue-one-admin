@@ -1,9 +1,20 @@
 import Vue from 'vue'
-import { createPinia, PiniaVuePlugin } from 'pinia'
+import Vuex from 'vuex'
 
-Vue.use(PiniaVuePlugin)
+Vue.use(Vuex)
 
-export const store = createPinia()
-export function setupStore(app) {
-  app.use(store);
-}
+const modulesFiles = require.context('./vuex', true, /\.js$/)
+
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // set './app.js' => 'app'
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const value = modulesFiles(modulePath)
+  modules[moduleName] = value.default
+  return modules
+}, {})
+
+const store = new Vuex.Store({
+  modules
+})
+
+export default store

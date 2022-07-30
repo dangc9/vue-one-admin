@@ -8,8 +8,8 @@
 </template>
 
 <script setup>
-import loginForm from './LoginForm.vue'
-import mobileForm from './MobileForm.vue'
+import loginForm from './loginForm.vue';
+import mobileForm from './MobileForm.vue';
 import { unref, computed } from 'vue';
 import { getLoginType } from './login.js';
 const isShowLogin = computed(() => unref(getLoginType) === 'LOGIN');

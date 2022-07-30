@@ -7,7 +7,8 @@ const userStore = defineStore('userStore', {
   state: () => ({
     userInfo: null,
     token: getToken(),
-    roleList: []
+    roleList: [],
+    counter: 0
   }),
   getters: {
     getUserInfo() {
@@ -22,6 +23,10 @@ const userStore = defineStore('userStore', {
   },
   actions: {
     setToken(val) {
+      this.token = val;
+      setToken(val)
+    },
+    setCounter(val) {
       this.token = val;
       setToken(val)
     },

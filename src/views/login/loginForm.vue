@@ -53,19 +53,12 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, getCurrentInstance } from 'vue';
 import { setLoginType } from './login.js';
-// import { useStore } from 'vuex';
-// const store = useStore()
-// import store from '@/store/index';
-// console.log(store.state.account)
-// const $vm = getCurrentInstance()
-// const router = $vm.proxy.$router
-// const route = $vm.proxy.$route
-// console.log(route)
-// import { useStore } from '@/store/use.js'
-// const store = useStore()
-// console.log(store.counter)
+
+const $vm = getCurrentInstance()
+const store = $vm.proxy.$store
+const router = $vm.proxy.$router
 const rules = {
   // code: [{ required: true, message: '请输入验证码' }],
   account: [{ required: true, message: '请输入账号' }],
@@ -80,15 +73,11 @@ const loginForm = ref()
 async function handleLogin() {
   const data = await loginForm.value.validate().catch(() => {});
   if (!data) return;
-  console.log(1)
-  // loading.value = true
-  // store.increment()
-  // console.log(store.counter)
-  // const res = userStore.login(formData);
-  // loading.value = false
-  // if (!res) return;
-  // console.log(res)
-  // router.push('/')
+  loading.value = true
+  const res = store.dispatch('user/login', formData).catch(() => {})
+  loading.value = false
+  if (!res) return;
+  router.push('/')
 }
 </script>
 

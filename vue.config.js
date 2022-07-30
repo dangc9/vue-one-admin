@@ -9,8 +9,7 @@ module.exports = defineConfig({
         warnings: false,
         errors: true
       },
-    }
-
-    // before: require('./mock/mock-server.js')
+    },
+    setupMiddlewares: require('./mock/mock-server.js')
   },
 })

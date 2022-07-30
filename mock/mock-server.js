@@ -43,9 +43,10 @@ const responseFake = (url, type, respond) => {
   }
 }
 
-module.exports = app => {
+module.exports = (middlewares,devServer) => {
   // 此app即webpack的devServer
   // 加载body-parser, 解析request.body
+  const { app } = devServer
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({
     extended: true
@@ -71,4 +72,5 @@ module.exports = app => {
       }
     }
   })
+  return middlewares;
 }
