@@ -7,7 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/style/windicss/base.css';
 import '@/assets/style/public.scss';
-// import '@/config/permission.js'
+import '@/config/permission.js'
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 if (process.env.NODE_ENV === 'production') {

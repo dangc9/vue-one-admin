@@ -1,8 +1,8 @@
 import { router } from '@/router'
+import store from '@/store'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { useUserStore } from '@/store/modules/user.js';
-import { usePermissionStore } from '@/store/modules/permission.js';
+
 nprogress.configure({
   easing: 'ease',
   speed: 500,
@@ -13,21 +13,21 @@ nprogress.configure({
 const whiteList = ['/login']
 router.beforeResolve(async (to, from, next) => {
   nprogress.start()
-  const userStore = useUserStore();
-  const permissionStore = usePermissionStore();
-  if (userStore.getToken) {
-    const hasRoles = userStore.roleList?.length > 0
+  if (store.state.user.token) {
+    const hasRoles = store.state.user.roles?.length > 0
     // 用户是否已经获取角色信息(是否已经添加异步路由)
     if (hasRoles) {
       next()
     } else {
       try {
-        const { roles } = await userStore.getUserInfoAction()
-        const routes = await permissionStore.buildRoutesAction(roles)
-        console.log(routes)
-        // next()
-      } catch {
-        // next('/login')
+        const { roles } = await store.dispatch('user/getUserInfo')
+        const routes = await store.dispatch('permission/generateRoutes', roles)
+        routes.forEach(res => { router.addRoute(res) })
+        // 设置replace为true，确保加载异步路由时，不读取历史记录。
+        next({ ...to, replace: true })
+      } catch (err) {
+        console.log(err)
+        next('/login')
       }
     }
   } else {
