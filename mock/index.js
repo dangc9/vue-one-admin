@@ -35,11 +35,12 @@ module.exports = function() {
     return function(options) {
       let result = null
       if (respond instanceof Function) {
-        const { body, type, url } = options
+        const { body, type, url, headers } = options
         result = respond({
           method: type,
           body: JSON.parse(body),
-          query: param2Obj(url)
+          query: param2Obj(url),
+          headers: headers
         })
       } else {
         result = respond

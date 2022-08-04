@@ -12,14 +12,14 @@ const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    avatar: '/one-admin/static/img/dangc.webp',
+    name: 'admin'
   },
   'dangc-token': {
     roles: ['user'],
     introduction: 'I am dangc',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal User'
+    avatar: '/one-admin/static/img/dangc.webp',
+    name: 'dangc'
   }
 }
 
@@ -44,9 +44,9 @@ module.exports = [
   },
   {
     url: '/user/getUserInfo',
-    type: 'get',
+    type: 'post',
     response: config => {
-      const { token } = config.headers
+      const { token } = config.body
       const info = users[token]
       if (!info) {
         return {
