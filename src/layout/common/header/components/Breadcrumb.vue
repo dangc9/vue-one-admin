@@ -20,17 +20,17 @@
 </template>
 
 <script setup>
-import { ref, watch, getCurrentInstance, computed } from 'vue'
+import { ref, watch, getCurrentInstance } from 'vue'
+import { useRoute, useRouter } from '@/router/instance.js'
 import path from 'path-browserify'
 const list = ref(null)
 const $vm = getCurrentInstance()
 const store = $vm.proxy.$store
-const router = $vm.proxy.$router
-const route = $vm.proxy.$route
-const route1 = computed(() => $vm.proxy.$route)
-console.log(route1.value)
+
+const router = useRouter()
+const route = useRoute()
 getBreadcrumb()
-watch(() => route1.value, () => {
+watch(() => route.path, () => {
   console.log(1)
   if (route.path.startsWith('/redirect/')) return;
   getBreadcrumb()

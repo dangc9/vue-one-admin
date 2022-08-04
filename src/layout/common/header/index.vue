@@ -14,12 +14,12 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/common/Breadcrumb'
-import Screenfull from './Screenfull'
-import Notice from './Notice'
-import User from './User'
-import Setting from './Setting'
-import Trigger from './Trigger'
+import Breadcrumb from './components/Breadcrumb'
+import Screenfull from './components/Screenfull'
+import Notice from './components/Notice'
+import User from './components/User'
+import Setting from './components/Setting'
+import Trigger from './components/Trigger'
 </script>
 
 <style lang="scss" scoped>

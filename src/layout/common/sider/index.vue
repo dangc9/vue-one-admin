@@ -21,19 +21,14 @@
 import { computed, getCurrentInstance } from 'vue'
 import logo from './logo.vue'
 import SidebarItem from './SidebarItem'
+import { useRoute } from '@/router/instance.js'
+const route = useRoute()
 const $vm = getCurrentInstance()
-const route = $vm.proxy.$route
 const store = $vm.proxy.$store
 const routes = store.state.permission.routes
+
 const appConfig = computed(() => store.state.app.appConfig)
-const activeMenu = computed(() => {
-  const { meta, path } = route
-  console.log(1)
-  if (meta.activeMenu) {
-    return meta.activeMenu
-  }
-  return path
-})
+const activeMenu = computed(() => route.path)
 </script>
 
 <style lang="scss" scoped>
