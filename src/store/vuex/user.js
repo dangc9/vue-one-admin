@@ -21,20 +21,19 @@ const mutations = {
 }
 
 const actions = {
-  async login({ commit, dispatch }, params) {
+  async login({ commit }, params) {
     try {
       const res = await request.loginApi(params)
       commit('SET_TOKEN', res.data.token)
-      const userInfo = await dispatch('getUserInfo')
-      return userInfo
+      return res.data
     } catch (res) {
       return Promise.reject(res)
     }
   },
   // 获取登录用户信息
   async getUserInfo({ commit, state }) {
-    if (!state.token) return null;
-    const res = await request.getUserInfo()
+    if (!state?.token) return null;
+    const res = await request.getUserInfo(state.token)
     const userInfo = res.data
     const { roles } = userInfo;
     if (roles?.length > 0) {
@@ -46,6 +45,13 @@ const actions = {
     }
     commit('SET_USERINFO', userInfo)
     return userInfo;
+  },
+  async logout({ commit, state }) {
+    const res = await request.logoutApi()
+    if (!res) return;
+    commit('SET_TOKEN', '')
+    commit('SET_ROLES', [])
+    return true
   }
 }
 

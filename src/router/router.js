@@ -23,19 +23,34 @@ export const asyncRoutes = [
   {
     path: '/icon',
     component: Layout,
-    meta: { title: '图标', icon: 'el-icon-c-scale-to-original', noCache: true },
+    redirect: '/icon/index1',
+    meta: { title: '图标', icon: 'el-icon-c-scale-to-original' },
     children: [
       {
         path: 'index1',
-        component: () => import('@/views/icons/index'),
+        redirect: '/icon/index1/index11',
+        meta: { title: '图标1', icon: 'el-icon-c-scale-to-original' },
         name: 'icon1',
-        meta: { title: '图标1', icon: 'el-icon-c-scale-to-original', noCache: true }
+        children: [
+          {
+            path: 'index11',
+            component: () => import('@/views/icons/index'),
+            name: 'icon11',
+            meta: { title: '图标11', icon: 'el-icon-c-scale-to-original' }
+          },
+          {
+            path: 'index22',
+            component: () => import('@/views/icons/index'),
+            name: 'icon22',
+            meta: { title: '图标22', icon: 'el-icon-c-scale-to-original' }
+          }
+        ]
       },
       {
         path: 'index2',
         component: () => import('@/views/icons/index'),
         name: 'icon2',
-        meta: { title: '图标2', icon: 'el-icon-c-scale-to-original', noCache: true }
+        meta: { title: '图标2', icon: 'el-icon-c-scale-to-original' }
       }
     ]
   }

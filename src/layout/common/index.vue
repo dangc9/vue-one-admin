@@ -1,17 +1,19 @@
 <template>
-  <div class="layout-wrapper">
-    <div>
+  <div >
+    <el-container class="layout-wrapper">
+      <el-aside :width="store.state.app.collapsed ? '54px': '200px'" class="sidebar-container">
+        <LayoutSideBar/>
+      </el-aside>
       <el-container>
-        <el-aside width="200px">
-          <LayoutSideBar/>
-        </el-aside>
-        <el-container>
-          <LayoutTagsBar/>
+        <el-header>
           <LayoutHeader/>
+          <LayoutTagsBar/>
+        </el-header>
+        <el-main>
           <LayoutContent/>
-        </el-container>
+        </el-main>
       </el-container>
-    </div>
+    </el-container>
   </div>
 </template>
 
@@ -20,4 +22,21 @@ import LayoutSideBar from './sider/index.vue'
 import LayoutTagsBar from './tags/index.vue'
 import LayoutHeader from './header/index.vue'
 import LayoutContent from './content/index.vue'
+import { getCurrentInstance } from 'vue'
+const $vm = getCurrentInstance()
+const store = $vm.proxy.$store
 </script>
+
+<style lang="scss" scoped>
+.layout-wrapper {
+  height: 100vh;
+  .el-header {
+    height: auto !important;
+    padding: 0;
+  }
+  .sidebar-container {
+    -webkit-transition: width .28s;
+    transition: width 0.28s;
+  }
+}
+</style>

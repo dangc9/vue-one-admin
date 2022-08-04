@@ -74,7 +74,7 @@ async function handleLogin() {
   const data = await loginForm.value.validate().catch(() => {});
   if (!data) return;
   loading.value = true
-  const res = store.dispatch('user/login', formData).catch(() => {})
+  const res = await store.dispatch('user/login', formData).catch(() => {})
   loading.value = false
   if (!res) return;
   router.push('/')

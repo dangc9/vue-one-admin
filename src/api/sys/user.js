@@ -14,18 +14,18 @@ class request {
     });
   }
 
-  static getUserInfo(params) {
+  static getUserInfo(token) {
     return service.request({
       url: Api.getUserInfo,
-      method: 'GET',
-      params
+      method: 'POST',
+      data: { token }
     });
   }
 
   static logoutApi(params) {
     return service.request({
       url: Api.logout,
-      method: 'GET',
+      method: 'POST',
       params
     });
   }

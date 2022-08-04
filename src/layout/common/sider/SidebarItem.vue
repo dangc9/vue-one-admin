@@ -19,16 +19,17 @@
         :item="child"
         :base-path="resolvePath(child.path)"
         class="nest-menu"
-      />
+      ></sidebar-item>
     </el-submenu>
   </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import path from 'path-browserify'
 import Item from './Item'
 import AppLink from './Link'
+import SidebarItem from './SidebarItem'
 import { isExternal } from '@/utils/validate'
 
 const onlyOneChild = ref(null)
