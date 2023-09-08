@@ -12,13 +12,13 @@ const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    avatar: '/one-admin/static/img/dangc.webp',
+    avatar: '/static/img/dangc.webp',
     name: 'admin'
   },
   'dangc-token': {
     roles: ['user'],
     introduction: 'I am dangc',
-    avatar: '/one-admin/static/img/dangc.webp',
+    avatar: '/static/img/dangc.webp',
     name: 'dangc'
   }
 }

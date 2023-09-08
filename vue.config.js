@@ -4,7 +4,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = defineConfig({
-  publicPath: "/one-admin/",
+  // publicPath: "/one-admin/",
   assetsDir: 'static',
   lintOnSave: true,
   transpileDependencies: true,
